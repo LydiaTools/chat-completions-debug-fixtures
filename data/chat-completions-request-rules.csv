@@ -1,0 +1,21 @@
+area,field,current_behavior,limit_or_values,scope,implementation_source
+request,model,free is the client-visible automatic-routing label; no provider/model identity is promised,Client label; non-empty string up to 256 characters,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,messages,1 to 6 messages,Array length 1–6,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+message,role,"system, developer, user, assistant, tool",Exact supported role names,OpenAI-compatible request field; site allowlist,lib/openai-chat.ts: normalizeChat
+message,content,Text only; text parts are joined with newline,Image and audio content are rejected,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,input size,Combined normalized messages and tool schemas are counted,"At most 6,000 serialized JSON characters",Site-specific behavior,lib/openai-chat.ts: MAX_INPUT
+request,output tokens,max_completion_tokens takes precedence over max_tokens; default is 256,"Positive safe integer, capped at 256",Site-specific behavior,lib/openai-chat.ts: MAX_OUTPUT
+request,stream,Must be boolean; true returns buffered SSE after completion,true or false,OpenAI-compatible field; site delivery behavior,lib/openai-chat.ts: normalizeChat and streamCompletion
+request,stream_options.include_usage,"When true, a final usage-only SSE frame is included when available",stream_options must be an object,Site-specific behavior,lib/openai-chat.ts: normalizeChat and streamCompletion
+request,temperature,Finite number in the supported range,0 to 2,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,top_p,Finite number in the supported range,0 to 1,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,presence_penalty / frequency_penalty,Finite numbers in the supported range,-2 to 2 for each,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,stop,One string or an array of up to four strings,Each string at most 256 characters,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,n,Only one completion is supported,n must equal 1,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,tools,Function tools only,"At most 8 tools; function name 1–64 ASCII letters, digits, underscore, or hyphen",Site-specific behavior,lib/openai-chat.ts: normalizeChat
+request,tool_calls,Assistant messages only; function calls only,1–8 calls; id at most 256 characters,Site-specific behavior,lib/openai-chat.ts: normalizeToolCalls
+request,tool_choice,"auto, none, required, or a named function; named/required choices need tools",Supported values are validated before forwarding,OpenAI-compatible field; site validation,lib/openai-chat.ts: normalizeChat
+request,response_format,"text, json_object, or json_schema; json_schema requires a schema object",Supported types only,OpenAI-compatible field; site validation,lib/openai-chat.ts: normalizeChat
+request,unsupported top-level fields,Rejected; error message does not echo the unsupported field name,Only the implementation allowlist is accepted,Site-specific behavior,lib/openai-chat.ts: normalizeChat
+local checker,pasted body size,"The local browser preflight accepts up to 24,000 characters before parsing","At most 24,000 input characters",Local checker only; separate from API input limit,lib/request-preflight.ts: REQUEST_PREFLIGHT_TEXT_LIMIT
+request,ignored metadata,"user, store, and metadata are accepted but omitted from forwarded payload",These fields are not forwarded,Site-specific behavior,lib/request-preflight.ts and lib/openai-chat.ts
