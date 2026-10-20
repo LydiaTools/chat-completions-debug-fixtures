@@ -33,6 +33,10 @@ print(f"verified {len(manifest['cases'])} fixtures")
 - The CSV symptom quotes are linked to the named source page; check the live source before treating wording as current.
 - The OpenCode examples are version-labeled templates, not a claim that all OpenCode installs share a single schema.
 
+## License
+
+No license file is provided. Public visibility does not grant permission to reuse this material; contact the repository owner for permission.
+
 ## References
 
 - [OpenAI Chat Completions API reference](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)
