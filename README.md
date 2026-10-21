@@ -11,6 +11,8 @@ No API key, user data, live provider response, or network request is included in
 - `data/chat-completions-request-rules.csv` — request fields and current gateway validation boundaries.
 - `data/opencode-provider-templates.md` — copyable OpenCode standard and v2 OpenAI-compatible provider templates, labeled by documentation generation.
 
+[Run the 24 synthetic fixtures in the browser self-test](https://chinagenai.com/downloads/chat-completions-debug-fixtures-v1/selftest): 11 response/SSE cases and 13 request-body cases, checked against the same site's inspectors and published expectations. No account, API key, or model call is needed. These are reference checks for the companion inspectors, not a test of your own parser or a live provider; use this repository's inputs and expectations to test your implementation.
+
 ## Verify the fixture bundle
 
 The JSON is UTF-8. Each case's `input` is the exact text submitted to the browser-only test; preserve SSE blank lines and final line endings. To verify a case digest in Python:
@@ -45,5 +47,3 @@ No license file is provided. Public visibility does not grant permission to reus
 - [OpenRouter: handling rate-limit errors in streaming](https://openrouter.ai/docs/api_reference/limits#handling-429-errors)
 - [OpenCode standard provider documentation](https://opencode.ai/docs/providers/)
 - [OpenCode v2 provider documentation](https://opencode.ai/v2/docs/providers/)
-
-For the browser-only companion checker and the gateway's current connection instructions, see [ChinaGenAI's API connection guide](https://chinagenai.com/connect).
